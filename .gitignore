@@ -1,1 +1,5 @@
 data/
+*.csv
+.idea/misc.xml
+.idea/vcs.xml
+Csi4106_Project.iml
