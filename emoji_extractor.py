@@ -42,7 +42,7 @@ def extract_emoji(text):
 
 
 if __name__ == "__main__":
-    target = '/Users/mk6/CSI_4106_project/emojifydata-en/emojitweets-01-04-2018.txt'
+    target = 'data/emojitweets-01-04-2018.txt'
 
     emoji_re = ':[a-zA-Z0-9-_]+:'
     emoji_re = re.compile(emoji_re)
@@ -56,25 +56,26 @@ if __name__ == "__main__":
     special_re_2 = '…'
     special_re_2 = re.compile(special_re_2)
 
-    with open(target, "r") as f:
+    with open(target, "r", encoding="utf-8") as f:
 
         # for i in range(0, 1000):
         #     phrase = f.readline()
         #     processed, _ = extract_emoji(phrase)
         #     print('Processed: %s' % processed)
 
-        with open('TEST_OUTPUT.csv', 'w') as o:
+        count = 0
+        with open('data/TEST_OUTPUT.csv', 'w', encoding="utf-8") as o:
             writer = csv.writer(o)
-
-            count = 0
             for line in f:
                 if count == 1000:
                     break
                 result = extract_emoji(line)
                 if result is not None:
-                    phrase = result[0]
-                    lst = result[1]
-                    writer.writerow([phrase, lst[0], lst[1]])
-                    count = count + 1
-
-            print(count)
+                    try:
+                        phrase = result[0]
+                        writer.writerow([phrase, result[1][0], result[1][1]])
+                        count = count + 1
+                    except Exception as e:
+                        print(count)  # This will print which line in txt having errors.
+                        print(e)
+        print(count)
