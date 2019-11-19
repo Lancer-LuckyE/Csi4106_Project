@@ -6,52 +6,41 @@ from nltk.stem.wordnet import WordNetLemmatizer
 from emoji import UNICODE_EMOJI
 
 
-class preprocessing:
-    def __init__(self, sentence):
-        self.__sentence = sentence
-        self.__tokens = word_tokenize(sentence)
-        self.__posTokens = nltk.pos_tag(self.__tokens)
-        self.__posLemmas = [WordNetLemmatizer().lemmatize(t, w) for t, w in zip(self.__tokens, self.__wordnet_tags)]
-        self.__wordnet_tags = [self.get_wordnet_pos(p[1]) for p in self.__posTokens]
-        self.__split_sentences = nltk.sent_tokenize(sentence)
-        self.__emojis = []
+def tokens(text):
+    return word_tokenize(text)
 
-    def get_tokens(self):
-        return self.__tokens
 
-    def get_sentence(self):
-        return self.__sentence
+def pos_tokens(tokens):
+    return nltk.pos_tag(tokens)
 
-    def get_posTokens(self):
-        return self.__posTokens
 
-    def get_posLemmas(self):
-        return self.__posLemmas
+def get_wordnet_pos(tree_bank_tag):
+    if tree_bank_tag.startswith('J'):
+        return wordnet.ADJ
+    elif tree_bank_tag.startswith('V'):
+        return wordnet.VERB
+    elif tree_bank_tag.startswith('N'):
+        return wordnet.NOUN
+    elif tree_bank_tag.startswith('R'):
+        return wordnet.ADV
+    else:
+        return wordnet.ADV
 
-    def get_wordnet_tags(self):
-        return self.__wordnet_tags
 
-    def get_split_sentences(self):
-        return self.__split_sentences
+def wordnet_tags(pos_tokens):
+    result = []
+    for p in pos_tokens:
+        result.append(get_wordnet_pos(p[1]))
+    return result
 
-    def get_emojis(self):
-        return self.__emojis
 
-    def emoji_to_str(self):
-        for i in range(len(self.__tokens)):
-            if self.__tokens[i] in UNICODE_EMOJI:
-                self.__emojis.append(self.__tokens[i])
-                self.__tokens.remove(self.__tokens[i])
+def pos_lemmas(tokens, wordnet_tags):
+    result = []
+    for t, w in zip(tokens, wordnet_tags):
+        result.append(WordNetLemmatizer().lemmatize(t, w))
+    return result
 
-    def get_wordnet_pos(self, treebank_tag):
-        if treebank_tag.startswith('J'):
-            return wordnet.ADJ
-        elif treebank_tag.startswith('V'):
-            return wordnet.VERB
-        elif treebank_tag.startswith('N'):
-            return wordnet.NOUN
-        elif treebank_tag.startswith('R'):
-            return wordnet.ADV
-        else:
-            return wordnet.ADV
+
+def split_sentence(text):
+    return nltk.sent_tokenize(text)
 
