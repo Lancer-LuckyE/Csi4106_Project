@@ -4,3 +4,4 @@ data/*
 .idea/misc.xml
 .idea/vcs.xml
 Csi4106_Project.iml
+.DS_Store

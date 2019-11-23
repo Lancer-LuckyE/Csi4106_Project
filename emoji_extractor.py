@@ -1,7 +1,20 @@
-import re
 import emoji
-import csv
+import re
 
+emoji_re = ':[a-zA-Z0-9-_]+:'
+emoji_re = re.compile(emoji_re)
+
+newline_re = '\\n'
+newline_re = re.compile(newline_re)
+
+special_re = '’'
+special_re = re.compile(special_re)
+
+special_re_2 = '…'
+special_re_2 = re.compile(special_re_2)
+
+
+# Remove content matched by the given compiled re list
 def clean_text(compiled_re_list, text):
     new_text = text
     for compiled_re in compiled_re_list:
@@ -9,10 +22,11 @@ def clean_text(compiled_re_list, text):
     return new_text
 
 
+# Extract two emoji from original text
+# Also perform elementary pre-processing
 def extract_emoji(text):
-
     # Remove '\n'
-    tmp = clean_text([nxtln_re], text)
+    tmp = clean_text([newline_re], text)
 
     # '😉' -> ':winking_face:'
     tmp = emoji.demojize(tmp)
@@ -41,6 +55,7 @@ def extract_emoji(text):
     return cleaned, emoji_lst
 
 
+'''
 if __name__ == "__main__":
     target = 'data/emojitweets-01-04-2018.txt'
 
@@ -67,7 +82,7 @@ if __name__ == "__main__":
         with open('data/TEST_OUTPUT.csv', 'w', encoding="utf-8") as o:
             writer = csv.writer(o)
             for line in f:
-                if count == 1000:
+                if count == 100000:
                     break
                 result = extract_emoji(line)
                 if result is not None:
@@ -79,3 +94,4 @@ if __name__ == "__main__":
                         print(count)  # This will print which line in txt having errors.
                         print(e)
         print(count)
+'''
