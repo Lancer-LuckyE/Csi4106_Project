@@ -3,6 +3,10 @@ import re
 from nltk.corpus import wordnet
 from nltk.corpus import stopwords
 
+'''
+Used for removing meaningless information from text.
+'''
+
 
 def get_wordnet_pos(treebank_tag):
     if treebank_tag.startswith('J'):

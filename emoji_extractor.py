@@ -1,6 +1,10 @@
 import emoji
 import re
 
+'''
+Used for extracting emoji from raw text.
+'''
+
 emoji_re = ':[a-zA-Z0-9-_]+:'
 emoji_re = re.compile(emoji_re)
 
