@@ -51,12 +51,13 @@ if __name__ == "__main__":
                         # Preprocess text
                         preprocessed_text = preprocess_text(wnl, raw_text)
 
+                        # Processed text may be '', which means that there is no meaningful information in this text.
+                        # We therefore do not put this entry in our result.
                         if contain_meaningful_text(preprocessed_text):
                             writer.writerow(
                                 [preprocessed_text, emoji_extraction_result[1][0], emoji_extraction_result[1][1]])
                             counter += 1
                     except Exception as e:
-                        print(counter)  # This will print which line in txt having errors.
                         print(e)
 
                 pointer += 1

@@ -38,10 +38,8 @@ def preprocess_text(word_net_lemmatizer, single_text_entry):
 
         # POS Tagging
         pos_tokens = nltk.pos_tag(tokens)
-
         # Wordnet tags
         wordnet_tags = [get_wordnet_pos(p[1]) for p in pos_tokens]
-
         # POS-based lemmatization
         lemmas_pos = [word_net_lemmatizer.lemmatize(t, w) for t, w in zip(tokens, wordnet_tags)]
 
