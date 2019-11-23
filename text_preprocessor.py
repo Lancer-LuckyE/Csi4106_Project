@@ -1,4 +1,3 @@
-# All requirements are already downloaded
 import nltk
 import re
 from nltk.corpus import wordnet
