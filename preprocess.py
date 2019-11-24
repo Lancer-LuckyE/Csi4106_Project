@@ -18,17 +18,19 @@ if __name__ == "__main__":
 
     target = 'data/emojitweets-01-04-2018.txt'
 
-    amount_to_be_preprocessed = 10
+    amount_to_be_preprocessed = 150000
 
     wnl = nltk.WordNetLemmatizer()
-    with open(target, 'r', encoding='utf-8') as f:
 
+    with open(target, 'r', encoding='utf-8') as f:
         counter = 0
         with open('data/TEST_OUTPUT.csv', 'w', encoding='utf-8') as o:
             writer = csv.writer(o)
+            writer.writerow(["text", "emoji_1", "emoji_2"])
             for line in f:
                 if counter == amount_to_be_preprocessed:
                     break
+
                 emoji_extraction_result = extract_emoji(line)
 
                 # Examine if there is any emoji in text
