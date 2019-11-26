@@ -56,7 +56,7 @@ def accscore(test_tags, predicted):
         if pred[0] == pred[1]:
             if tag[0] == tag[1]:
                 if pred[0] in tag:
-                    coun += 2
+                    count += 2
             else:
                 if pred[0] in tag:
                     count += 1
