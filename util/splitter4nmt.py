@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 def csv2dataset(path):
     with open(path, 'r') as target:
         reader = csv.reader(target)
-        with open('/data/train.text', 'w') as txt, open('/data/train.emoji', 'w') as emoji:
+        with open('../data/train.text', 'w') as txt, open('../data/train.emoji', 'w') as emoji:
             for row in reader:
                 txt.write(row[0] + '\n')
                 emoji.write(row[1] + ' ' + row[2] + '\n')
