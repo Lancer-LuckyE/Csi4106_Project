@@ -1,5 +1,6 @@
 import csv
 import nltk
+from time import process_time
 from emoji_extractor import extract_emoji
 from text_preprocessor import preprocess_text
 
@@ -23,14 +24,16 @@ if __name__ == "__main__":
     # start from (start_point+1)th line
     start_point = 0
 
-    amount_to_be_preprocessed = 10
+    amount_to_be_preprocessed = 500000
 
     wnl = nltk.WordNetLemmatizer()
+
+    start_time = process_time()
     with open(target, 'r', encoding='utf-8') as f:
 
         pointer = 0
         counter = 0
-        with open('data/TEST_OUTPUT.csv', 'w', encoding='utf-8') as o:
+        with open('data/TEST_OUTPUT_%s.csv'%amount_to_be_preprocessed, 'w', encoding='utf-8') as o:
             writer = csv.writer(o)
             for line in f:
 
@@ -61,5 +64,5 @@ if __name__ == "__main__":
                         print(e)
 
                 pointer += 1
-
-    print('Done!')
+    finish_time = process_time()
+    print('Done! Processed %s records in %s seconds.' % (amount_to_be_preprocessed, round(finish_time - start_time, 2)))
