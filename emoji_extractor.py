@@ -26,7 +26,7 @@ def extract_emoji(text):
     emoji_lst = emoji_re.findall(tmp)
 
     # no emoji in sentence WTF
-    if not (len(emoji_lst) > 0):
+    if len(emoji_lst) == 0:
         return None
 
     emoji_count = len(emoji_lst)
