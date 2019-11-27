@@ -15,33 +15,28 @@ def contain_meaningful_text(text_preprocessing_result):
     return len(text_preprocessing_result) != 0
 
 
-if __name__ == "__main__":
-
+def preprocess(start_point, amount_to_be_preprocessed):
     # The file to be processed
     target = 'data/emojitweets-01-04-2018.txt'
 
     # The line to start from
     # start from (start_point+1)th line
-    start_point = 0
-
-    amount_to_be_preprocessed = 500000
 
     wnl = nltk.WordNetLemmatizer()
 
     start_time = process_time()
     with open(target, 'r', encoding='utf-8') as f:
-
         pointer = 0
-        counter = 0
         with open('data/TEST_OUTPUT_%s.csv'%amount_to_be_preprocessed, 'w', encoding='utf-8') as o:
             writer = csv.writer(o)
-            for line in f:
+            writer.writerow(["text", "emoji_1", "emoji_2"])
+            for i, line in enumerate(f):
 
                 if pointer < start_point:
                     pointer += 1
                     continue
 
-                if counter == amount_to_be_preprocessed:
+                if i == amount_to_be_preprocessed:
                     break
 
                 emoji_extraction_result = extract_emoji(line)
@@ -59,10 +54,14 @@ if __name__ == "__main__":
                         if contain_meaningful_text(preprocessed_text):
                             writer.writerow(
                                 [preprocessed_text, emoji_extraction_result[1][0], emoji_extraction_result[1][1]])
-                            counter += 1
+                            print("line " + str(i + 1) + "is done.")
                     except Exception as e:
                         print(e)
-
                 pointer += 1
     finish_time = process_time()
     print('Done! Processed %s records in %s seconds.' % (amount_to_be_preprocessed, round(finish_time - start_time, 2)))
+
+
+if __name__ == "__main__":
+    preprocess(0, 200000)
+
