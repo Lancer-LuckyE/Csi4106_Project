@@ -3,6 +3,7 @@ from sklearn.naive_bayes import MultinomialNB
 import metric_calculator
 import pandas as pd
 
+
 def buildin_naive_bayes():
 
     clf_nb_emoji_1 = MultinomialNB()
@@ -89,7 +90,6 @@ def buildin_naive_bayes():
 #         training_set = chunks[:(train_size * 100)]
 #         testing_set = chunks[(train_size * 100):]
 #         return pd.concat(training_set), pd.concat(testing_set)
-
 
 
 if __name__ == "__main__":
