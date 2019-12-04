@@ -31,4 +31,5 @@ if __name__ == '__main__':
 
             counter += 1
 
-    print('NMT Accuracy: %s' % metric_calculator.accuracy(targets, predictions))
+    print('NMT Accuracy (based on %s training data): %s' % (
+        round(test_size / 0.05), metric_calculator.overall_accuracy(targets, predictions)))
