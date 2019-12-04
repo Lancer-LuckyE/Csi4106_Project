@@ -62,4 +62,4 @@ def preprocess(amount_to_be_preprocessed, start_point=0):
 
 
 if __name__ == '__main__':
-    preprocess(2e5, 0)
+    preprocess(round(2e5), 0)
