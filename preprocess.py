@@ -28,7 +28,7 @@ def preprocess(amount_to_be_preprocessed, start_point=0):
 
         pointer = 0
         counter = 0 # count of successfully generated data
-        with open('data/TEST_OUTPUT_%s.csv' % amount_to_be_preprocessed, 'w', encoding='utf-8') as o:
+        with open('data/TEST_OUTPUT_%s.csv' % amount_to_be_preprocessed, 'w', encoding='utf-8', newline='') as o:
             writer = csv.writer(o)
             for line in f:
 
@@ -62,4 +62,4 @@ def preprocess(amount_to_be_preprocessed, start_point=0):
 
 
 if __name__ == '__main__':
-    preprocess(round(2e5), 0)
+    preprocess(round(3e5), 0)
