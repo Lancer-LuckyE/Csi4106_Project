@@ -111,14 +111,11 @@ def knn(data, query, k):
 
 
 def main():
-    df = pd.read_csv("TEST_OUTPUT_500000.csv", encoding="ISO-8859-1")
-    df.columns = ['A', 'B', 'C']
-    df['D'] = df['B'].astype(str) + ' ' + df['C']
-
-    ddf = df.sample(n=25000, random_state=5)
-
+    df = pd.read_csv("TEST_OUTPUT.csv", encoding="ISO-8859-1")
+    ddf = df.sample(n=10000, random_state=5)
+    ddf.columns = ['A', 'B']
     train_reviews, test_reviews, train_tags, test_tags = train_test_split(ddf['A'],
-                                                                          ddf['D'],
+                                                                          ddf['B'],
                                                                           test_size=0.1,
                                                                           random_state=10)
 
@@ -136,8 +133,7 @@ def main():
             train_reviews, reg_query, k=2
         )
         emojiResult.append((train_tags[reg_k_nearest_neighbors[0][1]][0], train_tags[reg_k_nearest_neighbors[1][1]][0]))
-        print(reg_k_nearest_neighbors)
-        print(reg_prediction)
+
     print(accscore(test_tags, emojiResult))
 
 
