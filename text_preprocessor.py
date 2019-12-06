@@ -46,10 +46,10 @@ def get_wordnet_pos(treebank_tag):
     else:
         return wordnet.ADV  # just use as default, for ADV the lemmatizer doesn't change anything
 
-
+# process a single text entry
 def preprocess_text(word_net_lemmatizer, single_text_entry):
     sentences = nltk.sent_tokenize(single_text_entry)
-    spell = SpellChecker()
+#     spell = SpellChecker()
 
     processed_sentences = ''
 
@@ -63,7 +63,7 @@ def preprocess_text(word_net_lemmatizer, single_text_entry):
         # Remove stopwords
         tokens = [t for t in tokens if t not in stopwords.words('english')]
 
-#         # Correction spelling
+#         # Correction spelling (only tested on Naive Bayes)
 #         for i in range(len(tokens)):
 #             tokens[i] = spell.correction(reduce_repeat(tokens[i]))
 
