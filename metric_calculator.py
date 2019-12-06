@@ -20,6 +20,13 @@ def both_emoji_accuracy(test_target, test_prediction):
     for target, prediction in zip(test_target, test_prediction):
         if prediction[0] == target[0]:
             if prediction[1] == target[1]:
-                if prediction[0] in target:
-                    correct_prediction_count += 1
+                correct_prediction_count += 1
+    return correct_prediction_count / len(test_target)
+
+def both_wrong_rate(test_target, test_prediction):
+    correct_prediction_count = 0
+    for target, prediction in zip(test_target, test_prediction):
+        if prediction[0] != target[0]:
+            if prediction[1] != target[1]:
+                correct_prediction_count += 1
     return correct_prediction_count / len(test_target)

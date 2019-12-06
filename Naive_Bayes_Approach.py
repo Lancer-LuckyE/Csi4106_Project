@@ -1,19 +1,19 @@
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 import metric_calculator
 import pandas as pd
 
 
-def buildin_naive_bayes():
-
+def build_in_naive_bayes():
     clf_nb_emoji_1 = MultinomialNB()
     clf_nb_emoji_2 = MultinomialNB()
 
     # load text file
     train_texts = []
     test_texts = []
-    with open('data/splitted/t2e_train.text') as t2e_train_text:
-        with open('data/splitted/t2e_test.text') as t2e_test_text:
+    with open('data/t2e_train.text') as t2e_train_text:
+        with open('data/t2e_test.text') as t2e_test_text:
             for i, line in enumerate(t2e_train_text):
                 train_texts.append(line.rstrip())
             for i, line in enumerate(t2e_test_text):
@@ -21,7 +21,7 @@ def buildin_naive_bayes():
 
     # load emoji file
     # construct training emoji
-    with open('data/splitted/t2e_train.emoji') as t2e_train_emoji:
+    with open('data/t2e_train.emoji') as t2e_train_emoji:
         emoji_1 = []
         emoji_2 = []
         for i, line in enumerate(t2e_train_emoji):
@@ -32,7 +32,7 @@ def buildin_naive_bayes():
     train_emoji_2 = pd.Series(emoji_2)
 
     # construct testing emoji
-    with open('data/splitted/t2e_test.emoji') as t2e_test_emoji:
+    with open('data/t2e_test.emoji') as t2e_test_emoji:
         emoji_1 = []
         emoji_2 = []
         for i, line in enumerate(t2e_test_emoji):
@@ -69,29 +69,38 @@ def buildin_naive_bayes():
     for e1, e2 in zip(test_emoji_1, test_emoji_2):
         tag = (e1, e2)
         test_tags.append(tag)
-    print(metric_calculator.overall_accuracy(test_tags, predicted))
-    print(metric_calculator.both_emoji_accuracy(test_tags, predicted))
+    print("Overall accuracy: " + str(metric_calculator.overall_accuracy(test_tags, predicted)))
+    print("Both emoji accuracy: " + str(metric_calculator.both_emoji_accuracy(test_tags, predicted)))
+    print("The performance evaluation [class:(precision, recall)]: ")
+    print(naive_bayes_eval(test_tags, predicted))
 
-
-# class Emojify_NB:
-#     """
-#     Reimplement naive bayes
-#     """
-#     def __init__(self, csv_file, emoji_class):
-#         self.df = pd.read_csv(csv_file, encoding='utf-8')
-#         self.texts = self.df['text']
-#         self.emoji = self.df[emoji_class]
-#
-#         self.word_count  # a dict: all words from the texts as key, number of appearance as value
-#         self.emoji_class  # a list: all possible emoji
-#
-#     def train_test_split(self, train_size):
-#         chunks = np.array_split(self.df, 100)
-#         training_set = chunks[:(train_size * 100)]
-#         testing_set = chunks[(train_size * 100):]
-#         return pd.concat(training_set), pd.concat(testing_set)
+# Calculate the precision and recall evaluation
+def naive_bayes_eval(test_tags, predcited):
+    all_classes = list(dict.fromkeys(predcited))
+    result = {}
+    for c in all_classes:
+        Tp = 0
+        Tn = 0
+        Fp = 0
+        Fn = 0
+        for t, p in zip(test_tags, predcited):
+            if t == p:
+                Tp += 1
+            elif (t == c) and (p != c):
+                Fn += 1
+            elif (t != c) and (p == c):
+                Fp += 1
+            else:
+                Tn += 1
+        # precision
+        precision = round(Tp / (Tp + Fp), 6)
+        # recall
+        recall = round(Tp / (Tp + Fn), 6)
+        # set into result
+        result[c] = (precision, recall)
+    return result
 
 
 if __name__ == "__main__":
-    buildin_naive_bayes()
+    build_in_naive_bayes()
 
