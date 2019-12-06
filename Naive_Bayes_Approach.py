@@ -1,18 +1,23 @@
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 import metric_calculator
 import pandas as pd
 
 
 def build_in_naive_bayes():
+    # df = pd.read_csv("data/TEST_OUTPUT.csv", names=["texts", "emoji_1", "emoji_2"], nrows=200000)
 
     clf_nb_emoji_1 = MultinomialNB()
     clf_nb_emoji_2 = MultinomialNB()
 
+    # train_texts, test_texts, train_emoji_1, test_emoji_1 = train_test_split(df['texts'], df['emoji_1'], random_state=10, test_size=0.1)
+    # _, _, train_emoji_2, test_emoji_2 = train_test_split(df['texts'], df['emoji_2'], random_state=10, test_size=0.1)
+
     # load text file
     train_texts = []
     test_texts = []
-    with open('data/splitted/t2e_train.text') as t2e_train_text:
+    with open('data/t2e_train.text') as t2e_train_text:
         with open('data/splitted/t2e_test.text') as t2e_test_text:
             for i, line in enumerate(t2e_train_text):
                 train_texts.append(line.rstrip())
@@ -21,7 +26,7 @@ def build_in_naive_bayes():
 
     # load emoji file
     # construct training emoji
-    with open('data/splitted/t2e_train.emoji') as t2e_train_emoji:
+    with open('data/t2e_train.emoji') as t2e_train_emoji:
         emoji_1 = []
         emoji_2 = []
         for i, line in enumerate(t2e_train_emoji):
@@ -32,7 +37,7 @@ def build_in_naive_bayes():
     train_emoji_2 = pd.Series(emoji_2)
 
     # construct testing emoji
-    with open('data/splitted/t2e_test.emoji') as t2e_test_emoji:
+    with open('data/t2e_test.emoji') as t2e_test_emoji:
         emoji_1 = []
         emoji_2 = []
         for i, line in enumerate(t2e_test_emoji):

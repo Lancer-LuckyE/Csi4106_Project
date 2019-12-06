@@ -3,6 +3,7 @@ import nltk
 from time import process_time
 from emoji_extractor import extract_emoji
 from text_preprocessor import preprocess_text
+import multiprocessing as mp
 
 
 def contain_emoji(emoji_extraction_result):
@@ -28,17 +29,14 @@ def preprocess(amount_to_be_preprocessed, start_point=0):
 
         pointer = 0
         counter = 0 # count of successfully generated data
-        with open('data/TEST_OUTPUT_%s.csv' % amount_to_be_preprocessed, 'w', encoding='utf-8', newline='') as o:
+        with open('data/TEST_OUTPUT.csv', 'a+', encoding='utf-8') as o:
             writer = csv.writer(o)
             for line in f:
-
                 if pointer < start_point:
                     pointer += 1
                     continue
-
                 if counter == amount_to_be_preprocessed:
                     break
-
                 emoji_extraction_result = extract_emoji(line)
 
                 # Examine if there is any emoji in text
@@ -55,11 +53,31 @@ def preprocess(amount_to_be_preprocessed, start_point=0):
                         writer.writerow(
                             [preprocessed_text, emoji_extraction_result[1][0], emoji_extraction_result[1][1]])
                         counter += 1
-
                 pointer += 1
+                print('The ' + str(pointer) + ' line is done.')
     finish_time = process_time()
     print('Done! Processed %s records in %s seconds.' % (amount_to_be_preprocessed, round(finish_time - start_time, 2)))
 
 
 if __name__ == '__main__':
-    preprocess(round(3e5), 0)
+    p1 = mp.Process(target=preprocess, args=(50000, 0))
+    p2 = mp.Process(target=preprocess, args=(50000, 50000))
+    p3 = mp.Process(target=preprocess, args=(50000, 100000))
+    p4 = mp.Process(target=preprocess, args=(50000, 150000))
+    p5 = mp.Process(target=preprocess, args=(50000, 200000))
+    p6 = mp.Process(target=preprocess, args=(50000, 250000))
+
+    p1.start()
+    p2.start()
+    p3.start()
+    p4.start()
+    p5.start()
+    p6.start()
+
+    p1.join()
+    p2.join()
+    p3.join()
+    p4.join()
+    p5.join()
+    p6.join()
+    print("done")
