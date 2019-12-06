@@ -63,9 +63,9 @@ def preprocess_text(word_net_lemmatizer, single_text_entry):
         # Remove stopwords
         tokens = [t for t in tokens if t not in stopwords.words('english')]
 
-        # Correction spelling
-        for i in range(len(tokens)):
-            tokens[i] = spell.correction(reduce_repeat(tokens[i]))
+#         # Correction spelling
+#         for i in range(len(tokens)):
+#             tokens[i] = spell.correction(reduce_repeat(tokens[i]))
 
         # POS Tagging
         pos_tokens = nltk.pos_tag(tokens)
