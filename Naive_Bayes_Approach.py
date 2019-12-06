@@ -18,7 +18,7 @@ def build_in_naive_bayes():
     train_texts = []
     test_texts = []
     with open('data/t2e_train.text') as t2e_train_text:
-        with open('data/splitted/t2e_test.text') as t2e_test_text:
+        with open('data/t2e_test.text') as t2e_test_text:
             for i, line in enumerate(t2e_train_text):
                 train_texts.append(line.rstrip())
             for i, line in enumerate(t2e_test_text):
