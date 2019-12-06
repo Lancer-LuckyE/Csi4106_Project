@@ -63,3 +63,28 @@ def preprocess(amount_to_be_preprocessed, start_point=0):
 
 if __name__ == '__main__':
     preprocess(round(3e5), 0)
+    
+#     Create 6 processes to run parallely 	   
+#     p1 = mp.Process(target=preprocess, args=(50000, 0))         # 0 ~ 49999	
+#     p2 = mp.Process(target=preprocess, args=(50000, 50000))     # 50000 ~ 99999	
+#     p3 = mp.Process(target=preprocess, args=(50000, 100000))    # 100000 ~ 149999	
+#     p4 = mp.Process(target=preprocess, args=(50000, 150000))    # 150000 ~ 199999	
+#     p5 = mp.Process(target=preprocess, args=(50000, 200000))    # 200000 ~ 249999	
+#     p6 = mp.Process(target=preprocess, args=(50000, 250000))    # 250000 ~ 299999	
+
+#      # processes start	
+#     p1.start()	
+#     p2.start()	
+#     p3.start()	
+#     p4.start()	
+#     p5.start()	
+#     p6.start()	
+
+#      # join the result	
+#     p1.join()	
+#     p2.join()	
+#     p3.join()	
+#     p4.join()	
+#     p5.join()	
+#     p6.join()	
+#     print("done")
