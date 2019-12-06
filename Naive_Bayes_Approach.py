@@ -6,13 +6,8 @@ import pandas as pd
 
 
 def build_in_naive_bayes():
-    # df = pd.read_csv("data/TEST_OUTPUT.csv", names=["texts", "emoji_1", "emoji_2"], nrows=200000)
-
     clf_nb_emoji_1 = MultinomialNB()
     clf_nb_emoji_2 = MultinomialNB()
-
-    # train_texts, test_texts, train_emoji_1, test_emoji_1 = train_test_split(df['texts'], df['emoji_1'], random_state=10, test_size=0.1)
-    # _, _, train_emoji_2, test_emoji_2 = train_test_split(df['texts'], df['emoji_2'], random_state=10, test_size=0.1)
 
     # load text file
     train_texts = []
@@ -79,7 +74,7 @@ def build_in_naive_bayes():
     print("The performance evaluation [class:(precision, recall)]: ")
     print(naive_bayes_eval(test_tags, predicted))
 
-
+# Calculate the precision and recall evaluation
 def naive_bayes_eval(test_tags, predcited):
     all_classes = list(dict.fromkeys(predcited))
     result = {}
