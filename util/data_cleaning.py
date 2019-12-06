@@ -3,13 +3,12 @@ import pandas as pd
 import numpy as np
 
 def load_files():
-    df = pd.read_csv('../data/TEST_OUTPUT_300000.csv', names=["text", "emoji_1", "emoji_2"])
+    df = pd.read_csv('../data/TEST_OUTPUT.csv', names=["text", "emoji_1", "emoji_2"])
     return df
 
+# TODO
 def clean_low_freq_vocab():
-
     return
-
 
 def clean_low_freq_class(df, emoji, thershole=0.0005):
     normal_counts = df[emoji].value_counts(normalize=True)
@@ -17,7 +16,7 @@ def clean_low_freq_class(df, emoji, thershole=0.0005):
     res = df[~df[emoji].isin(to_remove)]
     return res
 
-
+# TODO
 def phrase_input():
     return
 
