@@ -8,7 +8,7 @@ from spellchecker import SpellChecker
 Used for removing meaningless information from text.
 '''
 
-
+# Reduce repeating letters to at most 2 times
 def reduce_reqeated_letters(token):
     reduced_token = token[0]
     i = 1
@@ -28,7 +28,7 @@ def reduce_reqeated_letters(token):
             i += 1
     return reduced_token
 
-
+# Reduce repeating letters to at most 2 times
 def reduce_repeat(token):
     pattern = re.compile(r"(.)\1{2,}")
     return pattern.sub(r"\1\1", token)
